@@ -1,0 +1,19 @@
+// Colors
+
+$olive: #7D8A2E;
+$green: #C9D787;
+$coral: #FFC0A9;
+$pink: #FF8598;
+$white: #ffffff;
+$black: #212121;
+
+@mixin wrapper {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+@mixin padded {
+    padding: 1rem;
+}

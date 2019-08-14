@@ -1,0 +1,125 @@
+@import '_variables.scss';
+
+// Gallery
+
+.grid {
+    @include wrapper;
+    margin: 0 auto;
+    max-width: 100%;
+    border: 2px solid $white;
+
+    &-sizer {
+        width: 25%;
+    }
+
+    &-item {
+        width: 25%;
+        margin-bottom: 0;
+        border: 4px solid $white;
+        cursor: pointer;
+        transition: all .15s ease-in-out;
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba($white, .45);
+            left: 0;
+            top: 0;
+            z-index: 1;
+            opacity: 0;
+            transition: all .15s ease-in-out;
+        }
+
+        &:hover {
+
+            &:after {
+                opacity: 1;
+            }
+
+        }
+    }
+}
+
+// Lightbox
+
+.lightbox {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 999;
+    overflow: hidden;
+    
+    &-open {
+        display: block;
+    }
+
+    &-overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba($black, .9);
+    }
+
+    &-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        padding: 1rem;
+
+        img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 100%;
+            height: auto;
+            max-height: calc(100vh - 2rem);
+        }
+    }
+
+    .btn {
+        position: absolute;
+        width: 3rem;
+        height: 80vh;
+        padding: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+        cursor: pointer;
+
+        &-prev {
+            left: 0;
+        }
+
+        &-next {
+            right: 0;
+        }
+
+        &-close {
+            height: 48px;
+            transform: none;
+            top: 0;
+            right: 0;
+        }
+
+        .fas {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: $white;
+            vertical-align: middle;
+        }
+    }
+}
