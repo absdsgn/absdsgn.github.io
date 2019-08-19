@@ -8,3 +8,5 @@
     <link href="https://fonts.googleapis.com/css?family=DM+Serif+Text:400,400i&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+
+<?php require 'nav.php'; ?>

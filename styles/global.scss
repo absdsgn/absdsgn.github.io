@@ -12,3 +12,8 @@ html, body {
     margin: 0;
     padding: 0;
 }
+
+.wrapper {
+    @include wrapper;
+    @include padded;
+}

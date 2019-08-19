@@ -4,7 +4,9 @@
     <?php require 'src/head.php'; ?>
 
     <body>
-        <h1>Hallo!</h1>
+        <div class="wrapper">
+            <h1>Hallo!</h1>
+        </div>
     </body>
     <footer>
     </footer>

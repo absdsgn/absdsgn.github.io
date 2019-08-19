@@ -2,42 +2,84 @@
 <html>
 
     <?php require 'src/head.php'; ?>
-    <?php $year = $_REQUEST['year']; ?>
-    <?php $gallery = $_REQUEST['gallery']; ?>
-    <?php $subgallery = $_REQUEST['subgallery']; ?>
-
-    <?php $year = '2018'; ?>
-    <?php $gallery = 'wedding'; ?>
-
+    <?php $year = ''; $gallery = ''; $subgallery = ''; ?>
+    <?php $year = $_REQUEST['y']; ?>
+    <?php $gallery = $_REQUEST['g']; ?>
+    <?php $subgallery = $_REQUEST['sg']; ?>
 
     <body>
-        <h1>Hallo!</h1>
 
         <?php if ( empty($year) ) : ?>
             <div class="wrapper">
-                <h3>Pick a year</h3>
+                <h3>First, pick a year.</h3>
+
+                <?php
+                $years = glob('images/*', GLOB_ONLYDIR);
+
+                foreach($years as $yr) : ?>
+
+                    <?php $yr = substr($yr, 7); ?>
+
+                    <a href="gallery.php?y=<?php echo $yr; ?>" class="btn btn-primary"><?php echo $yr; ?></a>
+
+                <?php endforeach; ?>
             </div>
         <?php endif; ?>
 
         <?php if ( !empty($year) && empty($gallery) ) : ?>
             <div class="wrapper">
-                <h3>Pick a gallery</h3>
+                <h3>Alright, now pick a gallery.</h3>
+
+                <?php
+                $galleries = glob('images/' . $year . '/*', GLOB_ONLYDIR);
+
+                foreach($galleries as $gal) : ?>
+
+                    <?php 
+                        $trimAdd = strlen($year);
+                        $trim = '8' + $trimAdd;
+                        $gal = substr($gal, $trim); 
+                    ?>
+
+                    <a href="gallery.php?y=<?php echo $year; ?>&g=<?php echo $gal; ?>" class="btn btn-primary"><?php echo $gal; ?></a>
+
+                <?php endforeach; ?>
+
             </div>
         <?php endif; ?>
 
-        <?php if ( !empty($year) && !empty($gallery) ) : 
+        <?php if ( !empty($year) && !empty($gallery) ) :
 
             $checkDir = 'images/' . $year . '/' . $gallery . '/*';
 
             $subgalleryCount  = count( glob($checkDir, GLOB_ONLYDIR) );
 
-            if ( $subgalleryCount > 1 ) {
+            if ( $subgalleryCount > 1 ) { ?>
 
-                $subgalleries = glob($checkDir, GLOB_ONLYDIR);
+                <div class="wrapper">
+                    <?php if ( empty($subgallery) ) { ?>
+                        <h3>Lastly, narrow it down.</h3>
+                    <?php } else { ?>
+                        <h3>Change it up.</h3>
+                    <?php } ?>
 
-                // foreach through subgallery options
+                    <?php $subgalleries = glob($checkDir, GLOB_ONLYDIR);
 
-            } elseif ( $subgalleryCount == 0 ) {
+                    foreach( $subgalleries as $subg ) : ?>
+
+                            <?php 
+                                $trimAdd = strlen($gallery);
+                                $trim = '13' + $trimAdd;
+                                $subg = substr($subg, $trim); 
+                            ?>
+
+                            <a href="gallery.php?y=<?php echo $year; ?>&g=<?php echo $gallery; ?>&sg=<?php echo $subg; ?>" class="btn btn-primary"><?php echo $subg; ?></a>
+
+                    <?php endforeach; ?>
+
+                </div>
+
+            <?php } elseif ( $subgalleryCount == 0 ) {
 
                 $directory = 'images/' . $year . '/' . $gallery;
 
@@ -49,7 +91,11 @@
 
         endif; ?>
 
+        <?php if ( !empty($year) && !empty($gallery) && !empty($subgallery) ) :
 
+            $directory = 'images/' . $year . '/' . $gallery . '/' . $subgallery;
+
+        endif; ?>
 
         <div class="grid">
             <div class="grid-sizer"></div>
